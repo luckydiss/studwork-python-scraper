@@ -60,11 +60,11 @@ def get_data():
             req = requests.get(url=order_href, headers=headers)
             src = req.text
 
-            with open(f'data/{count}.html', "w", encoding='utf-8') as file:
+            '''with open(f'data/{count}.html', "w", encoding='utf-8') as file:
                 file.write(src)
 
             with open(f"data/{count}.html", encoding='utf-8') as file:
-                src = file.read()
+                src = file.read()'''
 
             soup = BeautifulSoup(src, "lxml")
 
