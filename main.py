@@ -5,7 +5,8 @@ import csv
 import time
 
 start_time = time.time()
-
+start_time =start_time
+print('Работа началасьdfdffd')
 
 def get_data():
     with open(f"output_orders.csv", "w",encoding='utf-8') as file:
@@ -114,6 +115,7 @@ def main():
     get_data()
     finish_time = time.time() - start_time
     print(f"Затраченное на работу скрипта время: {finish_time}")
+    print(' ЫЫ')
 
 if __name__ == "__main__":
     main()

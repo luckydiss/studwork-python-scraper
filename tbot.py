@@ -5,7 +5,7 @@ from aiogram.dispatcher.filters import Text
 from aiofiles import os
 import pandas as pd
 
-TOKEN = ''
+TOKEN = '5365165769:AAG3BuOXpFpp8KBywtuxkwdXBFP4OMZIYrE'
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 
@@ -37,12 +37,26 @@ async def send_data(disc_code='', chat_id=''):
     #df = pd.read_csv('order_19_08_2022_09_18_async.csv', sep = ';')
     df = df.sort_values(by='start_date', ascending = True).reset_index()
 
+    print(len(df))
+
     for i in range(len(df)):
         try:
-            await bot.send_message(chat_id = chat_id, text = f"*{df['order_name'][i]}* \n {df['order_text'][i]} \n\n *Размещен:* {df['start_date'][i]} \n *Cрок сдачи:* {df['deadline_date'][i]} \n\n *Заказчик:* {df['user_name'][i]} \n\n *Ссылка:* {df['order_href'][i]}",
-                                   parse_mode="Markdown")
+            for el in ['питон', 'питоне','пайтон', 'python', 'jupyter',  'machine learning', 'машинное обучение',
+                       'машинного обучения', 'нейронную сеть', 'нейронной сети', 'искусственный интеллект',
+                       'исскуственного интеллекта', 'pytorch', 'tensorflow', 'регрессия', 'регрессии', 'паскаль',
+                       'паскале', 'pascal', 'матлаб', 'матлабе', 'matlab', 'excel', 'экселе']:
+                if el in df['order_name'][i].lower():
+                    await bot.send_message(chat_id = chat_id, text = f"*{df['order_name'][i]}* \n {df['order_text'][i]} \n\n *Размещен:* {df['start_date'][i]} \n *Cрок сдачи:* {df['deadline_date'][i]} \n\n *Заказчик:* {df['user_name'][i]} \n\n *Ссылка:* {df['order_href'][i]}",
+                                           parse_mode="Markdown")
         except:
             continue
+
+    # for i in range(len(df)):
+    #     try:
+    #         await bot.send_message(chat_id = chat_id, text = f"*{df['order_name'][i]}* \n {df['order_text'][i]} \n\n *Размещен:* {df['start_date'][i]} \n *Cрок сдачи:* {df['deadline_date'][i]} \n\n *Заказчик:* {df['user_name'][i]} \n\n *Ссылка:* {df['order_href'][i]}",
+    #                                parse_mode="Markdown")
+    #     except:
+    #         continue
 
     await os.remove(file)
 
@@ -54,20 +68,34 @@ async def send_data(disc_code='', chat_id=''):
         df1 = df1.sort_values(by='start_date', ascending=True).reset_index()
 
         for i in range(len(df1)):
-            if df1['order_href'][i] not in df['order_href'].values:
+            # if df1['order_href'][i] not in df['order_href'].values:
+            #     try:
+            #         await bot.send_message(chat_id=chat_id,
+            #                                text=f"*{df1['order_name'][i]}* \n {df1['order_text'][i]} \n\n \
+            #                                *Размещен:* {df1['start_date'][i]} \n *Cрок сдачи:* {df1['deadline_date'][i]}\
+            #                                 \n\n *Заказчик:* {df1['user_name'][i]} \n\n *Ссылка:* {df1['order_href'][i]}",
+            #                                parse_mode="Markdown")
+            #     except:
+            #         continue
+
                 try:
-                    await bot.send_message(chat_id=chat_id,
-                                           text=f"*{df1['order_name'][i]}* \n {df1['order_text'][i]} \n\n \
-                                           *Размещен:* {df1['start_date'][i]} \n *Cрок сдачи:* {df1['deadline_date'][i]}\
-                                            \n\n *Заказчик:* {df1['user_name'][i]} \n\n *Ссылка:* {df1['order_href'][i]}",
-                                           parse_mode="Markdown")
+                    for el in ['питон', 'питоне', 'пайтон', 'python', 'jupyter', 'machine learning',
+                               'машинное обучение',
+                               'машинного обучения', 'нейронную сеть', 'нейронной сети', 'искусственный интеллект',
+                               'исскуственного интеллекта', 'pytorch', 'tensorflow', 'регрессия', 'регрессии',
+                               'паскаль', 'логином', 'loginom', 'логиноме', 'deductor', 'deductor studio', 'дедуктор'
+                               'паскале', 'pascal', 'матлаб', 'матлабе', 'matlab', 'excel', 'экселе']:
+                        if el in df['order_name'][i].lower():
+                            await bot.send_message(chat_id=chat_id,
+                                                   text=f"*{df1['order_name'][i]}* \n {df1['order_text'][i]} \n\n *Размещен:* {df1['start_date'][i]} \n *Cрок сдачи:* {df1['deadline_date'][i]} \n\n *Заказчик:* {df1['user_name'][i]} \n\n *Ссылка:* {df1['order_href'][i]}",
+                                                   parse_mode="Markdown")
                 except:
                     continue
 
         df = df1
 
-        await asyncio.sleep(600)
-
+        await asyncio.sleep(10)
+        print(file)
         await os.remove(file)
 
 if __name__ == '__main__':

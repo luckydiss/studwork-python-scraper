@@ -11,19 +11,18 @@ start_time = time.time()
 
 
 async def get_page_data(session, page):
-    headers = {
-        "Accept": "*/*",
-        "User-Agent": "Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1"
-    }
+    # headers = {
+    #     "Accept": "*/*",
+    #     "User-Agent": "Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1"
+    # }
 
-    url = f'https://studwork.org/orders?discipline_group_ids=4&page={page}'
+    url = f'https://studwork.ru/orders?discipline_group_ids=4&page={page}'
 
-    async with session.get(url=url, headers=headers) as response:
+    async with session.get(url=url) as response:
         response_text = await response.text()
 
         soup = BeautifulSoup(response_text, "lxml")
-        all_orders_hrefs = soup.find_all(class_="sw-link order-item__link sw-link_styled")
-
+        all_orders_hrefs = soup.find_all(class_="sf-link text-caption order-item__link sf-link_styled")
         all_orders_dict = {}
 
         for item in all_orders_hrefs:
@@ -35,7 +34,7 @@ async def get_page_data(session, page):
 
         for order_name, order_href in all_orders_dict.items():
 
-            async with session.get(url=order_href, headers=headers) as response:
+            async with session.get(url=order_href) as response:
                 response_text = await response.text()
 
                 soup = BeautifulSoup(response_text, "lxml")
@@ -95,7 +94,6 @@ async def main():
         )
 
     for order in orders_data:
-
         with open(f"order_{cur_time}_async.csv", "a",encoding='utf-8') as file:
             writer = csv.writer(file, delimiter = ';' )
 
